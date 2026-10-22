@@ -219,7 +219,11 @@ export async function installAgents({
 
   const rendered = [];
   for (const role of ROLE_SPECS) {
-    const modelPolicy = resolveModelPolicy({ requested: profile[role.name] ?? null, observableModels });
+    const previous = currentReceipt?.files.find((record) => record.template === role.template);
+    const requested = Object.hasOwn(profile, role.name)
+      ? profile[role.name]
+      : previous?.model_policy?.requested ?? null;
+    const modelPolicy = resolveModelPolicy({ requested, observableModels });
     const [template, prompt] = await Promise.all([
       fs.readFile(path.join(pluginRoot, role.template), "utf8"),
       fs.readFile(path.join(pluginRoot, role.prompt), "utf8"),

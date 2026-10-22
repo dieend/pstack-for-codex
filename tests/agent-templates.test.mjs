@@ -100,3 +100,44 @@ test("a model pair is rendered only after the observable list validates it", asy
   assert.equal(policy.status, "verified-explicit");
   assert.deepEqual(policy.resolved, requested);
 });
+
+test("upgrade preserves a Sol request, revalidates it, and accepts an explicit inheritance choice", async (t) => {
+  const { projectRoot, userHome } = await fixture(t);
+  const options = { pluginRoot: root, projectRoot, userHome, scope: "project" };
+  const requested = { model: "gpt-6.1-sol", reasoning_effort: "high" };
+  const observableModels = [{ slug: requested.model, reasoning_efforts: ["medium", "high"] }];
+  const profilePath = path.join(projectRoot, ".codex/agents/pstack-poteto-agent.toml");
+  await installAgents({ ...options, profile: { "pstack-poteto-agent": requested }, observableModels });
+
+  const upgrade = await installAgents({ ...options, observableModels });
+  assert.match(await fs.readFile(profilePath, "utf8"), /^model = "gpt-6\.1-sol"$/m);
+  assert.deepEqual(upgrade.files[0].model_policy.requested, requested);
+
+  const unobserved = await installAgents(options);
+  assert.doesNotMatch(await fs.readFile(profilePath, "utf8"), /^model(?:_reasoning_effort)? =/m);
+  assert.equal(unobserved.files[0].model_policy.status, "unverified-inheritance");
+  assert.deepEqual(unobserved.files[0].model_policy.requested, requested);
+
+  await installAgents({ ...options, observableModels });
+  assert.match(await fs.readFile(profilePath, "utf8"), /^model = "gpt-6\.1-sol"$/m);
+  const inherited = await installAgents({ ...options, profile: { "pstack-poteto-agent": null }, observableModels });
+  assert.equal(inherited.files[0].model_policy.status, "inherited");
+  assert.doesNotMatch(await fs.readFile(profilePath, "utf8"), /^model(?:_reasoning_effort)? =/m);
+});
+
+test("a removed model or unsupported effort blocks an upgrade without rewriting owned files", async (t) => {
+  const { projectRoot, userHome } = await fixture(t);
+  const options = { pluginRoot: root, projectRoot, userHome, scope: "project" };
+  const requested = { model: "gpt-6.1-sol", reasoning_effort: "high" };
+  const initial = await installAgents({
+    ...options,
+    profile: { "pstack-poteto-agent": requested },
+    observableModels: [{ slug: requested.model, reasoning_efforts: ["high"] }],
+  });
+  const paths = [...initial.files.map((record) => record.path), initial.receiptPath];
+  const before = await Promise.all(paths.map((file) => fs.readFile(path.join(projectRoot, file), "utf8")));
+  for (const observableModels of [[], [{ slug: requested.model, reasoning_efforts: ["medium"] }]]) {
+    await assert.rejects(installAgents({ ...options, observableModels }), /not in the observable model list|does not support reasoning effort/);
+    assert.deepEqual(await Promise.all(paths.map((file) => fs.readFile(path.join(projectRoot, file), "utf8"))), before);
+  }
+});

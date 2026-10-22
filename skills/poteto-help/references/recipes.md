@@ -5,12 +5,12 @@ Replace the placeholders with real paths, skills, and finish checks.
 ## Understand
 
 - `$poteto-mode read <thread>. restate the underlying issue in your own words, in plain english.`
-- `/in-your-own-words <long or messy ask>`
-- `/sharpen <your task>`
+- `$in-your-own-words <long or messy ask>`
+- `$sharpen <the prompt you want rewritten, not executed>`
 - `$poteto-mode investigate why <symptom>. give me what we know, what data you used, and your best hypotheses. don't change any code yet.`
 - `use $how to understand <subsystem>. then use $why to find out why it broke recently.`
-- `/recall my work on <topic> from last week, then read <issue>.`
-- `/teach me why you implemented it this way and not <other way>. what did you trade off?`
+- `$recall my work on <topic> from last week, then read <issue>.`
+- `$teach me why you implemented it this way and not <other way>. what did you trade off?`
 - `$poteto-mode take over this branch. read the decision log, find what's done, and continue. don't redo finished work.`
 
 ## Build
@@ -32,6 +32,7 @@ Replace the placeholders with real paths, skills, and finish checks.
 
 ## Review and ship
 
+- `$create-formal-verification-skill check <property> in <module> when operations retry or interleave.` Recheck later with `$maintain-formal-verification-skill`.
 - `$interrogate review the complete branch. Do not change code. Report real bugs or regressions, and explain dismissals.`
 - `$swarm check each package under <directory> with its check script. Use one read-only worker for each package and return one report.`
 - `$poteto-mode prepare the pull request with small ordered commits and evidence in the description.`
@@ -40,6 +41,7 @@ Replace the placeholders with real paths, skills, and finish checks.
 
 ## Away and back
 
+- `$ketchup` summarizes this chat and lists every pending user decision.
 - `$poteto-mode keep working in a separate worktree from <base>. Done means <checks>. Keep a decision log. Commits are allowed, but do not push or open a pull request. Stop for credentials or a product decision.`
 - `$show-me-your-work summarize the unattended run. Start with the Attention section.`
 - `$poteto-mode full autopilot on this queue. Each item is independent.`

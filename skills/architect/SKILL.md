@@ -29,7 +29,7 @@ Skip Phase A only when the work is genuinely greenfield with no surrounding syst
 
 Run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt.
 
-Use your configured architect runners (defaults the configured judgment profile, the configured instruction-following profile, the configured fast profile, an entitled alternate-family judgment profile).
+Use user-selected, installed runner profiles when permitted. Otherwise use independent agents that inherit the parent. The runtime contract owns model validation and reduced-diversity reporting; no panel profile list is bundled.
 
 Design it twice. Require at least two structurally distinct candidates before synthesis, even when the first looks sufficient. This is the **exhaust-the-design-space** principle skill made concrete. Whole-shape alternatives, not point fixes inside one shape.
 

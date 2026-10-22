@@ -1,0 +1,8 @@
+interface:
+  display_name: "Maintain Formal Verification Skill"
+  short_description: "Reconcile formal verification with changes to covered code"
+  default_prompt: "Use $maintain-formal-verification-skill to check whether this project's verification still matches its code."
+policy:
+  products:
+    - CODEX
+  allow_implicit_invocation: false

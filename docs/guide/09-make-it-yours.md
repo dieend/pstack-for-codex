@@ -28,6 +28,10 @@ Use `$technical-writing` for documentation and `$unslop` for the final prose pas
 
 Use `$correct` when the same mistake has at least two examples. Prefer an architecture, type, lint, test, or tool constraint over a prose reminder. Use `$benchmark-checklist` before you preserve or publish a performance number.
 
+## Choose project verification
+
+For app behavior, use `$create-verification-skill` and `$maintain-verification-skill`. For a formal property, use `$create-formal-verification-skill` and `$maintain-formal-verification-skill`. The [verification guide](./06-verify-and-ship.md) explains their scope and proof limits.
+
 ## Keep provenance separate
 
 Do not edit [`upstream.lock.json`](../../upstream.lock.json) to describe a local customization. The lock records the imported source. Put derivative behavior in the compatibility map, tests, and adaptation notes. [UPSTREAM.md](../../UPSTREAM.md) covers refreshes.

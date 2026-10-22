@@ -24,6 +24,10 @@ A useful prompt has an outcome, a finish check, relevant evidence, constraints, 
 
 Short follow-ups such as `continue` work when the active task is clear. Use `new task` when the subject changes. Use `$poteto-help` when you want a prompt drafted without starting the task.
 
+## Improve a prompt before work
+
+To improve a prompt before work starts, use [`$sharpen`](../../skills/sharpen/SKILL.md). It returns the rewritten prompt only. It adds expert methods, raw evidence, and an independent check without executing the task or making your choices for you.
+
 ## Understand session state
 
 Start the prompt with `$poteto-mode`, `$pstack-for-codex:poteto-mode`, or the Codex skill chip. The chip serializes as a Markdown link with either exact label and a normalized absolute local path ending in `/skills/poteto-mode/SKILL.md`. Quoted examples, casual mentions, and links to other skills do not activate the mode.

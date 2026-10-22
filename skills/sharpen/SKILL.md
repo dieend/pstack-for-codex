@@ -1,6 +1,8 @@
 ---
 name: sharpen
-description: "Sharpen a task before starting: the expert approach, what the user is really after, and the right level of specification. Use for $sharpen."
+description: "Rewrite a prompt to make the task deeper, not bigger. Identify expert methods, raw evidence, and an independent check. Use for $sharpen or an explicit prompt-rewrite request. Do not execute the rewritten task."
 ---
 
-Before starting, ask how a top expert would approach this task (their raw sources, their real methods, an outside check that the result is right), what the user is really after, and whether the task is over- or underspecified. Loosen constraints that don't serve the goal as readily as you add ones that do, and leave choices that are the user's to make open instead of deciding them. Fold in only what makes the work better, not bigger, but always keep one outside check that the result is right, without narrating the framing, then do the work. Don't hand back a rewritten prompt.
+Make the prompt deeper, not bigger. Identify what a top professional would add, the raw evidence they would examine, their methods and tools, and an independent check that the result is correct. Use those answers to rewrite the prompt.
+
+Return the rewritten prompt only. Preserve the user's goal, scope, and constraints. Leave product and preference choices open. Do not execute the task or make external changes.

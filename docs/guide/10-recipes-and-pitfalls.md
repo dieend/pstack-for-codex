@@ -54,6 +54,18 @@ $swarm inspect each package for direct legacy-client calls. Keep the workers rea
 $setup-benny inspect the dormant Benny pack and list every activation blocker. Do not create automations or write externally.
 ```
 
+## Rewrite a prompt or catch up
+
+Use `$sharpen` on a prompt before you send it. It returns a deeper prompt without doing the work. Use `$ketchup` after work to see what changed and every item that needs your decision. Action items are not dropped to meet a word count.
+
+## Check a formal property
+
+```text
+$create-formal-verification-skill check that the retry queue never delivers a message twice.
+```
+
+Use `$maintain-formal-verification-skill` after changes to covered code. A passing stale model is not proof of current code.
+
 ## Avoid these mistakes
 
 - Do not use slash-command syntax. Invoke installed skills as `$skill-name`.

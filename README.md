@@ -1,6 +1,6 @@
 # pstack for Codex
 
-`pstack-for-codex` is a Codex-native derivative of [pstack](https://github.com/cursor/plugins/tree/main/pstack). It packages deliberate engineering workflows as 55 explicit-only skills and 23 Poteto Mode playbooks.
+`pstack-for-codex` is a Codex-native derivative of [pstack](https://github.com/cursor/plugins/tree/main/pstack). It packages deliberate engineering workflows as 57 explicit-only skills and 23 Poteto Mode playbooks.
 
 Use `$poteto-mode` for a substantial engineering task. It selects a playbook, records the work as verifiable steps, and invokes narrower skills when the steps need them. The parent task keeps authority for integration, external writes, commits, pushes, and the final result.
 
@@ -19,9 +19,9 @@ For a local checkout, replace `Aqua-123/pstack-for-codex` with its absolute path
 codex plugin list --json
 ```
 
-Codex CLI `0.153.4` does not expose an offline runtime skill-index command. The release suite validates the skill catalog from the installed artifact; start a new task to exercise prompt-time skill discovery.
+The release suite validates the installed skill catalog and records the executing Codex CLI version. It does not prove prompt-time discovery or model dispatch. Start a new task to load the refreshed catalog.
 
-All 55 skills require explicit invocation. Codex stores their full identities under the `pstack-for-codex` namespace. In a prompt, invoke a skill with its registered `$name`:
+All 57 skills require explicit invocation. Codex stores their full identities under the `pstack-for-codex` namespace. In a prompt, invoke a skill with its registered `$name`:
 
 ```text
 $poteto-mode add a --json flag to this command. Keep text output byte-identical. Verify both modes.
@@ -63,6 +63,10 @@ The other skills are useful when you want one specific operation:
 | [`$no-comments`](./skills/no-comments/SKILL.md) | Review comments and remove ones that do not earn their place. |
 | [`$unslop`](./skills/unslop/SKILL.md) | Remove vague or machine-shaped prose. |
 | [`$show-me-your-work`](./skills/show-me-your-work/SKILL.md) | Keep a reviewable `decisions.tsv` trail. |
+| [`$sharpen`](./skills/sharpen/SKILL.md) | Rewrite a prompt without executing it. |
+| [`$ketchup`](./skills/ketchup/SKILL.md) | Summarize this chat and list every pending user decision. |
+| [`$create-formal-verification-skill`](./skills/create-formal-verification-skill/SKILL.md) | Check a high-risk property and create a project verification skill. |
+| [`$maintain-formal-verification-skill`](./skills/maintain-formal-verification-skill/SKILL.md) | Reconcile formal verification with changed code. |
 | [`$setup-benny`](./skills/setup-benny/SKILL.md) | Inspect or configure the dormant Benny polling pack. |
 | [`$make-bot-ui`](./skills/make-bot-ui/SKILL.md) | Build a local UI for an authenticated user-owned webhook. |
 
@@ -88,7 +92,7 @@ The two stable automation names are `pstack-benny-triage` and `pstack-benny-repr
 
 ## Develop and verify
 
-The metadata and resource validator requires Node.js. The legacy orchestrator and watch-PR scripts require [Bun](https://bun.sh/).
+The release suite requires Node.js 22.18 or later for native TypeScript imports. The orchestrator and watch-PR scripts require [Bun](https://bun.sh/). The current release was checked with Node.js 26.12.0 and Bun 1.3.8.
 
 ```bash
 node scripts/validate-plugin.mjs --json
@@ -132,4 +136,6 @@ See [Codex adaptation notes](./docs/codex-adaptation.md) for the behavioral chan
 
 MIT. See [LICENSE](./LICENSE) and [NOTICE](./NOTICE).
 
-The 0.4.0 refresh tracks upstream pstack 0.15.24. It adds `$in-your-own-words`, `$ketchup`, and `$sharpen`, improves plan fence checks, and updates PR watching and forge-neutral stack handling. Codex authority, explicit-only discovery, profile inheritance, and supported history access remain enforced.
+The 0.5.0 refresh tracks upstream pstack 0.15.29. It adds formal verification creation and maintenance, makes `$sharpen` return a rewritten prompt without executing it, and makes `$ketchup` list every pending user decision. The Poteto entrypoint routes detailed principles and playbooks through references.
+
+Codex inherits the parent model by default. Explicit model and effort pairs require current supported evidence and permission. Upstream's Opus and Grok defaults are not Codex defaults and do not remove valid Sol selections. Profile upgrades preserve the requested pair and validate it again. No automatic multi-model panel registry is installed.

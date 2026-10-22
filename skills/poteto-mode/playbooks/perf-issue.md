@@ -16,7 +16,7 @@ Delegation, lifecycle, isolation, history, and capability fallbacks follow `../r
    7. Do it cheaper.
 
    Stop when an earlier mantra meets the target.
-3. Plan the fix from the trace. If it crosses a function boundary, `architect` first. Delegate implementation to a subagent using your configured perf-issue model (default the configured instruction-following profile); review the diff. Capture a post-fix trace.
+3. Plan the fix from the trace. If it crosses a function boundary, `architect` first. Delegate implementation to a subagent using the parent model unless current instructions permit a validated profile; review the diff. Capture a post-fix trace.
    Apply the **sequence-verifiable-units** principle skill, verifying each attempt before trying the next.
 4. Parse and compare the artifacts (JSON to sqlite, diff). "Inconclusive" or wrong-surface is not a pass; flag it.
 5. Cite the measurement in the PR.

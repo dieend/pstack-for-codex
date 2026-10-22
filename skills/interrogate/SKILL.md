@@ -7,7 +7,7 @@ description: "Use for \"interrogate\", \"adversarial review\", \"multi-model rev
 
 Delegation and optional capabilities follow `../poteto-mode/references/codex-agent-runtime.md`.
 
-Spawn one reviewer per configured model to adversarially review code changes. Each model gets the same prompt and rubric. The adversarial signal comes from model diversity, not assigned personas. Models differ in blind spots, priors, and reasoning patterns. Agreement across models is high-confidence signal; lone-model findings are worth reading but lower confidence.
+Use independent reviewers with the same prompt and rubric. Different verified models can add diverse evidence when available and permitted. With inheritance, label the result same-model independent review. Agreement does not replace checking each finding against the code.
 
 ## Step 1, Scope
 
@@ -25,16 +25,7 @@ Derive the intent from the user request, code, commit messages, and any PR descr
 
 ## Step 3, Spawn Reviewers
 
-Launch all reviewers in a single message using the supported subagent tools. Use the `interrogate reviewers` list from the installed pstack model profiles when present, one reviewer per entry, extending or shrinking the Reviewer A/B/C/D labels below to the configured entry count; otherwise use the table defaults.
-
-| Subagent | Default model |
-|----------|---------------|
-| Reviewer A | the configured judgment profile |
-| Reviewer B | the configured instruction-following profile |
-| Reviewer C | the configured fast profile |
-| Reviewer D | an entitled alternate-family judgment profile |
-
-Each reviewer uses a validated configured profile or a generic read-only agent with an inherited model pair. Keep `model` and `reasoning_effort` separate. When a requested pair is unavailable, follow that role's declared substitute, inherit, skip, or fail-closed policy. Report skipped lanes and unverified served identities. Do not open a configuration PR unless the active request authorizes repository writes.
+Choose panel size from the review scope, user request, and available capacity. Dispatch independent read-only reviewers through supported tools. Use user-selected profiles only when installed and permitted; otherwise inherit the parent. Apply the runtime model policy and report missing lanes and unverified served identities. If the user requires distinct models and they are unavailable, report partial coverage instead of silently substituting. Do not open an unrequested configuration PR.
 
 Read `references/reviewer-prompt.md` and fill in the same template for every reviewer with the stated intent, the diff or file contents, the rubric from `references/rubric.md`, and the code-quality lens from `references/code-quality-review.md`. Inherit the parent model and reasoning effort unless the user or a validated profile requests another available pair.
 

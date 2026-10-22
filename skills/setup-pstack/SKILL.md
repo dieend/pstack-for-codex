@@ -20,7 +20,7 @@ Read `references/model-profile.md` before changing configuration. The portable p
 
 ## Model policy
 
-Ask whether each role should inherit the parent or request an explicit `model` plus `reasoning_effort` pair. If the user wants a reasoning budget, offer unlimited (`max`), large (`xhigh`), medium (`high`), and small (`medium`). A budget is a requested effort, not an entitlement. Validate it separately for every chosen model. Do not write an unsupported pair or silently replace the user's choice. Existing receipted model and effort choices remain the starting point.
+Ask whether each role should inherit the parent or request an explicit `model` plus `reasoning_effort` pair. Offer only effort values that the selected model advertises. Do not describe `max` as unlimited or translate budget labels to fixed effort levels across models. Preserve existing receipted choices as the starting point. Do not write an unsupported pair or silently replace the user's choice. A profile cannot override stricter live instructions.
 
 If a supported Codex model-list surface is observable, convert it to JSON records shaped like:
 
@@ -35,7 +35,7 @@ Profiles are a JSON object keyed by namespaced agent name:
 ```json
 {
   "pstack-poteto-agent": {"model":"gpt-5.6-sol","reasoning_effort":"high"},
-  "pstack-comment-sicko": {"model":"gpt-5.6-terra","reasoning_effort":"medium"}
+  "pstack-comment-sicko": {"model":"gpt-5.6-sol","reasoning_effort":"medium"}
 }
 ```
 
@@ -55,3 +55,7 @@ Add `--profile <json-file>` for requested pairs and `--models <json-file>` only 
 On success, report the scope, written paths, receipt path, and each role's configuration status. Say that new profiles apply to newly spawned agents. When a panel inherits or loses distinct profiles, report reduced model diversity instead of claiming which model served it.
 
 On `review-required` or any collision, stop. Show the exact paths and do not suggest force deletion.
+
+## Optional project verification
+
+After a successful setup, inspect existing project verification skills or harnesses. If real-surface verification is absent, offer [create-verification-skill](../create-verification-skill/SKILL.md) once. If a costly concurrency, retry, state-machine, or input property lacks formal verification, offer [create-formal-verification-skill](../create-formal-verification-skill/SKILL.md) once. Generate either only after the user accepts. A decline or missing optional tool does not block profile setup.

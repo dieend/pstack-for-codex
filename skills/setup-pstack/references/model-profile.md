@@ -18,7 +18,11 @@ Custom-agent defaults never prove the served model, effort, effective sandbox, c
 - Requested pair without an observable model list: record `unverified-inheritance`, omit both TOML fields, and show the requested pair only as unverified intent.
 - Missing entitlement or unsupported pair: stop without changing profiles. Do not silently select a substitute.
 
+On upgrade, an omitted role keeps its receipted requested pair and validates it again. An explicit null profile value changes that role to inheritance. Without a live model list, preserve the request in the receipt but omit model fields.
+
 Panel workflows must report reduced diversity when inheritance or unavailable profiles collapse distinct requested roles onto the same observable model. They must not invent a served-model receipt.
+
+The two optional profiles above are the entire setup surface. There is no installed role registry or default multi-model panel. Routed skills inherit unless the user selects real profiles or permits supported model overrides. Host-specific defaults do not remove Codex model families, including Sol, from the live available list.
 
 ## Ownership receipt
 

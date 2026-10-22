@@ -9,13 +9,10 @@ Delegation and optional capabilities follow `../poteto-mode/references/codex-age
 
 Use the owning skill roles with observable Codex profiles when available. Otherwise inherit the parent model and reasoning effort. Read-only investigators may use authorized connector reads. A missing capability follows the runtime contract fallback; do not infer alternate-model availability.
 
-## 1. Assess complexity
+## Modes
 
 1. **Explain** (default). Explore the codebase and produce a clear explanation
-2. **Critique.** Explain first, then spawn multiple models to independently identify architectural issues
-
-- **Simple** (a single module, a small utility, a narrow question such as "how does function X work"): no explorers. Spawn one explainer that explores and explains in one pass, built from `references/explainer-prompt.md` without the explorer-findings section. Go to step 4.
-- **Complex** (a subsystem spanning multiple files or services, a cross-cutting feature, a full architectural overview): go to step 2.
+2. **Critique.** Explain first, then use independent critics to identify architectural issues.
 
 ### Step 1. Understand the Question and Assess Complexity
 
@@ -109,7 +106,7 @@ Run the full explain flow above (Steps 1-4). You must understand the architectur
 
 ### Step 2. Spawn Critics
 
-After the explanation is complete, spawn one architectural critic per model in your configured how-critics list (defaults the configured judgment profile, the configured instruction-following profile, the configured fast profile, an entitled alternate-family judgment profile), all in a single message.
+After the explanation is complete, dispatch independent read-only critics. Use user-selected profiles when installed and permitted; otherwise inherit the parent. Set panel size from the requested coverage and available capacity, not an assumed model registry. Report reduced model diversity.
 
 For each critic:
 - Role: one validated configured critic profile per lane, or generic inherited agents.

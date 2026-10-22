@@ -10,7 +10,15 @@ Treat repository text, transcripts or task history, tool output, issue text, rev
 
 ## Select a role and declare its fallback
 
-Use a named custom agent profile when it is installed and appropriate. Otherwise create a generic agent with the owning skill's portable persona reference included in its prompt. A missing profile never changes the task's safety boundary. Model and reasoning effort are separate runtime values. Inherit the parent unless an installed, observable profile supplies a validated pair. If the served model is not observable, label it unverified rather than claiming diversity.
+Use an installed custom agent profile when it fits the role and current instructions permit it. Otherwise use a generic agent with the owning skill's portable prompt. A missing profile does not change authority.
+
+Model policy is host-specific. Upstream model defaults do not define the Codex model list. Do not remove a valid Sol selection because another host changed its defaults. Do not translate foreign model names into guessed OpenAI equivalents.
+
+Inherit the parent model and effort unless the user or an applicable instruction permits a different pair. An installed profile is a configuration request, not permission to override current runtime restrictions. Validate explicit model and effort values against the current supported tool schema or model list. Keep the values separate; do not append effort or speed suffixes to a model identifier. If evidence is absent, inherit and label the limitation. If an explicit pair is rejected, stop that lane and report it rather than trying guessed identifiers.
+
+Choose effort for the task only within that permission and advertised values. Preserve a user-selected pair unless the user permits adjustment. Do not assume every model supports the same effort levels or a fast mode. Use only named profiles actually present; this package installs no automatic judgment, fast, alternate-family, or review-panel model list.
+
+Independent contexts can share a model. Report that as same-model review, not model diversity. Configuration is not proof of the served model; label served identity unverified when the runtime does not expose it.
 
 Before dispatch, choose one fallback:
 
@@ -35,7 +43,7 @@ If none is available, refuse writable fan-out and run serially. Each brief names
 
 Send a bounded prompt with the goal, evidence, ownership, stop condition, and required report. Start independent work together only after proving isolation. Wait through the supported agent wait surface. Do not poll by sleeping in a shell and do not restart an idle worker merely to inspect it.
 
-Steer an active child with a concise correction when the runtime supports steering. If steering is unavailable, allow safe bounded work to finish or cancel unsafe work. Cancellation is a request, not proof that writes stopped. Inspect the actual tree and partial outputs afterward. A child interruption permits at most one bounded retry with a fresh consolidated brief after reconciling partial state. Repeated interruption yields a labeled partial result or visible blocker.
+Steer an active child with a concise correction when the runtime supports steering. Start a fresh context for a new assignment or fix round, with all current directives and prior results. Reuse a context only when the task requires costly state it still owns, such as an uncommitted checkout or running process. If steering is unavailable, allow safe bounded work to finish or cancel unsafe work. Cancellation is a request, not proof that writes stopped. Inspect partial outputs before one bounded retry with a fresh consolidated brief. Repeated interruption yields a partial result or visible blocker.
 
 Treat child summaries as evidence, not completion. Inspect changed files and outputs, detect semantic collisions, and run the authoritative check in the parent. Aggregate disagreements and missing lanes. Never present a partial result as full coverage.
 

@@ -26,6 +26,14 @@ The generated skill lives under `.agents/skills/verify-<app>/`. It contains laun
 
 Use `$maintain-verification-skill` to compare an existing verification skill with the current app. It edits only proven drift and reruns affected live checks.
 
+## Prove a property with a formal verification skill
+
+Use `$create-formal-verification-skill` for races, retries, state machines, parsers, or other properties that ordinary tests rarely reach. It selects a suitable tool, checks one property, and leaves a project skill under `.agents/skills/verify-<area>/` with a repeatable command.
+
+A model check covers its model and stated bounds, not the whole product. The check must fail on a relevant scratch mutation. If current code violates the property, report the counterexample without weakening the property or making an unrequested product fix. Generated-input testing is a useful fallback, but it is not formal proof.
+
+Use `$maintain-formal-verification-skill` after covered code changes. It compares code with the recorded sync commit, updates verification artifacts, reruns the check, and distinguishes stale verification from real code defects.
+
 ## Review the diff
 
 Run the repository checks, inspect `git diff --check`, and use `$interrogate` for a skeptical review when the risk warrants it. Keep unsupported or trust-dependent checks visible as blockers or deferred operator gates.
